@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Starter</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link href="../../plugins/bootstrap-table/bootstrap-table.css" rel="stylesheet" />
+    <!-- bootstrap3Validation -->
+    <link href="../../plugins/bootstrap-validation/bootstrap-ie78.css" rel="stylesheet" type="text/css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" href="../../dist/css/skins/skin-blue.min.css">
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="box-header">我的流程</div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table id="table"
+                           data-method="post"
+                           data-toggle="table"
+                           data-toolbar="#toolbar"
+                           data-height="600"
+                           data-side-pagination="server"
+                           data-pagination="true"
+                           data-page-list="[5, 10, 20, 50, 100, 200]"
+                           data-search="true" data-show-refresh="true" data-show-toggle="true"
+                           data-show-columns="true">
+                        <thead>
+                        <tr>
+                            <th data-field="id">id</th>
+                            <th data-field="processDefinitionKey">key</th>
+                            <th data-field="name">流程名称</th>
+                            <th data-field="startTime">启动日期</th>
+                            <th data-field="isEnd" data-formatter="isEnd" >是否结束</th>
+                            <th data-field="endTime">结束日期</th>
+                            <th data-formatter="operateFormatter" data-events="operateEvents">操作</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--查看流程-->
+    <div class="side-right transtion"  id='TaskInfoDiv'  style="width: 100%"  > <!--  style="width: 70%"  -->
+        <div class="box box-info">
+            <div class="box-header">查看流程进行详细</div>
+            <div class="box-body">
+                <div id="imgDiv">
+
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#TaskInfoDiv" >关闭</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--&lt;!&ndash;启动流程&ndash;&gt;-->
+    <!--<div class="side-right transtion"  id='starTaskInfoDiv' > &lt;!&ndash;  style="width: 70%"  &ndash;&gt;-->
+        <!--<div class="box box-info">-->
+            <!--<div class="box-header">启动流程</div>-->
+            <!--<div class="box-body">-->
+                <!--<input type="hidden" id="starTaskId" />-->
+                <!--<div><label>测试</label></div>-->
+            <!--</div>-->
+            <!--<div class="box-footer">-->
+                <!--<button type="button" class="btn btn-danger pull-left" data-toggle="slider" data-target="#starTaskInfoDiv" >关闭</button>-->
+                <!--<button type="button" class="btn btn-primary" id="starTask-btn" >启动</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+
+
+
+
+`
+
+    <!-- Modal -->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.blockUI.min.js"></script>
+    <script src="../../plugins/jQuery/jquery.form.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+    <script src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="../../plugins/bootstrap-validation/bootstrap3-validation.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <!-- httpUtils -->
+    <script src="../../js/httpUtils.js"></script>
+    <!-- 地址 -->
+    <script src="../../js/url.js"></script>
+    <!-- 图片 -->
+    <script src="../../js/image.js"></script>
+    <!-- hint -->
+    <script src="../../js/hint.js"></script>
+
+    <script src="../../security/js/myProcess.js"></script>
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>

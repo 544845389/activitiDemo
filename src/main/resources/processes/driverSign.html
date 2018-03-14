@@ -1,0 +1,58 @@
+<!-- 司机签收  -->
+<div class="form-group has-success">
+    <label>送货地址</label>
+    <br>
+    <input  class="form-control"   data-info="送货地址"  value="${deliveryAddress}" readonly="readonly"  />
+</div>
+
+<div class="form-group has-success">
+    <label>货物详情</label>
+    <br>
+    <input  class="form-control"  data-info="货物详情" value="${goodsDetails}" readonly="readonly"  />
+</div>
+
+<div class="form-group has-success">
+    <label>要求到货时间</label>
+    <br>
+    <input type="date" class="form-control"  data-info="要求到货时间" value="${arrivalTime}"  readonly="readonly"  />
+</div>
+
+<div class="form-group has-success">
+    <label>物流单备注</label>
+    <br>
+    <input  class="form-control"  data-info="备注" value="${remarks}" readonly="readonly"   />
+</div>
+
+
+<div class="form-group has-success">
+    <label>是否签收</label>
+    <br>
+    <select   class="form-control"  name="accept" >
+        <option selected="selected" value="true">签收</option>
+        <option  value="false">拒签</option>
+    </select>
+</div>
+
+<div class="form-group has-success">
+    <label>司机备注</label>
+    <br>
+    <input  class="form-control"  data-info="司机备注" name="driversNotes"  />
+</div>
+
+
+<div class="form-group has-success">
+    <label>司机办理人</label>
+    <br>
+    <input  id="driverPerson"  class="form-control"  data-info="司机办理人" name="driverPerson" readonly="readonly"  />
+</div>
+
+
+<script>
+    
+    $(function () {
+        var  userName = sessionStorage.getItem("userName");
+        $("#driverPerson").val(userName);
+    })
+    
+    
+</script>

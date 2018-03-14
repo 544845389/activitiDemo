@@ -1,0 +1,46 @@
+<!-- 启动流程表单  -->
+<div class="form-group has-success">
+	<label>送货地址</label>
+	<br>
+	<input  class="form-control" name="deliveryAddress"  data-info="送货地址"  />
+</div>
+
+<div class="form-group has-success">
+	<label>货物详情</label>
+	<br>
+	<input  class="form-control" name="goodsDetails"  data-info="货物详情"  />
+</div>
+
+<div class="form-group has-success">
+	<label>车辆类型</label>
+	<br>
+	<select   class="form-control"  name="vehicleType" >
+		<option selected="selected" value="轻型货车">轻型货车</option>
+		<option  value="中型货车">中型货车</option>
+		<option  value="重型货车">重型货车</option>
+	</select>
+</div>
+
+
+<div class="form-group has-success">
+	<label>要求到货时间</label>
+	<br>
+	<input type="date" class="form-control" name="arrivalTime"   data-info="要求到货时间" />
+</div>
+
+<div class="form-group has-success">
+	<label>备注</label>
+	<br>
+	<input  class="form-control" name="remarks"  data-info="备注"  />
+</div>
+
+
+
+ <!--初始化参数-->
+
+
+<input type="hidden"  name="accept" value="false" />
+<input type="hidden"  name="handlingAccept" value="false" />
+
+<input type="hidden" name="driversNotes"  value="false"   />
+<input type="hidden" name="handlingNotes"  value="false"   />

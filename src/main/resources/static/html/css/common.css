@@ -1,0 +1,35 @@
+body{
+  	background: #ecf0f5;
+  }
+  .fa-ban{
+    color: red;
+  }
+  .fa-circle-thin{
+    color: green;
+  }
+  .icon{
+    margin:0 2px;
+  }
+  .modal-backdrop{
+    display: none !important;
+  }
+  .modal-con{
+    display: none;
+  }
+  .side-right{
+    position: absolute;
+    top:0px;
+    z-index: 999;
+    height: 100%;
+    background: #fff;
+    width:35%;
+    right: -101%;
+  }
+  .slide-open{
+    right: 0px !important;
+  }
+  .transtion{
+    transition: right 1.0s;
+    -webkit-transition: right 1.0s;
+  }
+
