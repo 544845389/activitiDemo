@@ -1,4 +1,6 @@
 # activitiDemo
-activiti 流程实例
+activiti 
 
-本项目为Activiti的  实例
+本项目为Activiti的  学习实例
+
+spring-boot  -  activiti
