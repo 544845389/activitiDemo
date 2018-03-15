@@ -16,6 +16,9 @@ import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
+import org.activiti.engine.impl.pvm.PvmTransition;
+import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -157,7 +160,7 @@ public class TaskServiceImpl implements TaskService {
     private List<String> getExecutedFlows(BpmnModel bpmnModel, List<HistoricActivityInstance> historicActivityInstances) {
         // 流转线ID集合
         List<String> flowIdList = new ArrayList<String>();
-        // 全部活动实例
+//        // 全部活动实例
         List<FlowNode> historicFlowNodeList = new LinkedList<FlowNode>();
         // 已完成的历史活动节点
         List<HistoricActivityInstance> finishedActivityInstanceList = new LinkedList<HistoricActivityInstance>();
@@ -167,8 +170,9 @@ public class TaskServiceImpl implements TaskService {
                 finishedActivityInstanceList.add(historicActivityInstance);
             }
         }
-
+//
         // 遍历已完成的活动实例，从每个实例的outgoingFlows中找到已执行的
+
         FlowNode currentFlowNode = null;
         for (HistoricActivityInstance currentActivityInstance : finishedActivityInstanceList) {
             // 获得当前活动对应的节点信息及outgoingFlows信息
@@ -207,7 +211,7 @@ public class TaskServiceImpl implements TaskService {
                 String flowId = null;
                 for (Map<String, String> map : tempMapList) {
                     long activityStartTime = Long.valueOf(map.get("activityStartTime"));
-                    if (earliestStamp == 0 || earliestStamp >= activityStartTime) {
+                    if (earliestStamp == 0 || earliestStamp <= activityStartTime) {
                         earliestStamp = activityStartTime;
                         flowId = map.get("flowId");
                     }
@@ -217,6 +221,8 @@ public class TaskServiceImpl implements TaskService {
         }
         return flowIdList;
     }
+
+
 
 
 
