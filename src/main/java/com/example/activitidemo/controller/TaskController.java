@@ -161,5 +161,16 @@ public class TaskController {
 
 
 
+    /**
+     * 已办任务
+     * @return
+     */
+    @RequestMapping(value = "doTaskPage" ,method = RequestMethod.POST)
+    public Page<Map<String,Object>> doTask(@RequestParam("userId") String  userId) {
+        return taskService.doTask(userId);
+    }
+
+
+
 
 }

@@ -57,3 +57,7 @@ var claim =  "/task/claimTask";
 
 // 签收任务
 var deploy =  "/task/deploy";
+
+
+// 已办任务
+var doTask =  "/task/doTaskPage";

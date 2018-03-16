@@ -16,6 +16,7 @@ import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.pvm.PvmTransition;
 import org.activiti.engine.impl.pvm.process.ActivityImpl;
@@ -427,6 +428,64 @@ public class TaskServiceImpl implements TaskService {
                 .deploy();//完成部署
 
     }
+
+
+    /**
+     * 已办任务
+     * @param userId
+     * @return
+     */
+    @Override
+    public Page<Map<String, Object>> doTask(String userId) {
+        Page<Map<String, Object>> page = new Page<>();
+        List<Map<String,Object>> list = new ArrayList<>();
+
+        List<HistoricTaskInstance>  hisTaskList = historyService.createHistoricTaskInstanceQuery()
+                .taskAssignee(userId)
+                .orderByTaskId()
+                .desc()
+                .list();
+
+        StringBuffer sbTask = new StringBuffer("");
+        List<String> processInstanceIds = new ArrayList<>();
+        for(HistoricTaskInstance t : hisTaskList){
+            String processId = t.getProcessInstanceId();
+            sbTask.append("'").append(processId).append("',");
+            if(!processInstanceIds.contains(processId)){
+                processInstanceIds.add(processId);
+            }
+        }
+
+
+        for(int i=0 ; i<processInstanceIds.size() ; i++){
+            Map<String,Object> map = new HashMap<>();
+            String processInstanceId = processInstanceIds.get(i);
+            Task t =  taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
+
+            map.put("createDate" , DateUtil.formatDate(t.getCreateTime(),DateUtil.FULL_DATE_TIME_FORMAT));
+            map.put("name" , t.getName());
+            map.put("processInstanceId" , t.getProcessInstanceId());
+            map.put("id" , t.getId());
+
+            // 流程启动用户
+            HistoricProcessInstance historicProcessInstance =
+                    historyService.createHistoricProcessInstanceQuery()
+                            .processInstanceId(t.getProcessInstanceId())
+                            .singleResult();
+            map.put("startUserId" , historicProcessInstance.getStartUserId());
+
+            list.add(map);
+        }
+
+        page.setTotal(list.size());
+        page.setNowPage(1);
+        page.setRows(list);
+        page.setNowPage(1000);
+        page.setPageNumber(1000);
+        return  page;
+    }
+
+
 
 
 }

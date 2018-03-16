@@ -1,5 +1,6 @@
 package com.example.activitidemo;
 
+import com.alibaba.fastjson.JSON;
 import com.example.activitidemo.model.BpmsActivityTypeEnum;
 import com.example.activitidemo.utils.UtilMisc;
 import org.activiti.bpmn.model.BpmnModel;
@@ -8,6 +9,7 @@ import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.impl.RepositoryServiceImpl;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -30,10 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.zip.ZipInputStream;
 
 @RunWith(SpringRunner.class)
@@ -386,6 +385,31 @@ public class ActivitidemoApplicationTests {
             }
         }
         return highFlows;
+    }
+
+
+
+
+    /**
+     * 已办任务
+     */
+    @Test
+    public void getActivitiProccessImage11() throws IOException {
+        String userName = "gonzo";
+
+        //获得当前用户处理的历史流程实例
+        List<HistoricTaskInstance>  hisTaskList = historyService.createHistoricTaskInstanceQuery().taskAssignee(userName).orderByTaskId().desc().list();
+        StringBuffer sbTask = new StringBuffer("");
+        List<String> processInstanceIds = new ArrayList<>();
+        for(HistoricTaskInstance t : hisTaskList){
+            String processId = t.getProcessInstanceId();
+            sbTask.append("'").append(processId).append("',");
+            if(!processInstanceIds.contains(processId)){
+                processInstanceIds.add(processId);
+            }
+        }
+
+
     }
 
 
