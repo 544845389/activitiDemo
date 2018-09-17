@@ -59,4 +59,8 @@ public interface TaskService {
     void deploy();
 
     Page<Map<String,Object>> doTask(String userId);
+
+
+
+    void deployById(String modelId) throws Exception;
 }

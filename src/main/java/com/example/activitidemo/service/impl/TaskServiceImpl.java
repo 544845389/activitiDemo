@@ -2,36 +2,38 @@ package com.example.activitidemo.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.activitidemo.model.BpmsActivityTypeEnum;
-import com.example.activitidemo.model.StartParam;
 import com.example.activitidemo.service.TaskService;
 import com.example.activitidemo.utils.UtilMisc;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lorne.core.framework.exception.ServiceException;
 import com.lorne.core.framework.model.Page;
 import com.lorne.core.framework.utils.DateUtil;
+import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
+import org.activiti.editor.language.json.converter.BpmnJsonConverter;
 import org.activiti.engine.*;
-import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
-import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
-import org.activiti.engine.impl.pvm.PvmTransition;
-import org.activiti.engine.impl.pvm.process.ActivityImpl;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.DeploymentBuilder;
+import org.activiti.engine.repository.Model;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.zip.ZipInputStream;
 
@@ -486,6 +488,25 @@ public class TaskServiceImpl implements TaskService {
     }
 
 
+
+    @Override
+    public void deployById(String modelId) throws Exception {
+        try {
+            Model modelData = repositoryService.getModel(modelId);
+            ObjectNode modelNode = (ObjectNode) new ObjectMapper().readTree(repositoryService.getModelEditorSource(modelData.getId()));
+            byte[] bpmnBytes = null;
+            BpmnModel model = new BpmnJsonConverter().convertToBpmnModel(modelNode);
+            bpmnBytes = new BpmnXMLConverter().convertToXML(model);
+            String processName = modelData.getName() + ".bpmn20.xml";
+            DeploymentBuilder db = repositoryService.createDeployment().name(modelData.getName());
+            Deployment deployment = db.addString(processName, new String(bpmnBytes,"utf-8")).deploy();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("部署失败");
+        }
+
+
+    }
 
 
 }

@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Created by 54484 on 2018/3/6.
+ *
+ * @author 54484
+ * @date 2018/3/6
  */
 @RestController
 @RequestMapping("task")
@@ -35,6 +37,17 @@ public class TaskController {
         taskService.deploy();
     }
 
+
+
+    /**
+     * 部署流程
+     * @return
+     */
+    @RequestMapping(value = "deployById")
+    public void deployById(@RequestBody JSONObject jsonObject ) throws Exception {
+        String modelId =  jsonObject.getString("modelId");
+        taskService.deployById(modelId);
+    }
 
 
 

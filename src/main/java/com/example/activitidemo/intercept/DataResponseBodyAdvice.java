@@ -38,6 +38,10 @@ public class DataResponseBodyAdvice implements ResponseBodyAdvice {
             return  body;
         }
 
+        if(url.endsWith("json") || url.endsWith("stencilset") || url.endsWith("error")){
+            return  body;
+        }
+
         Response res = new Response();
         res.setCode(40000);
         res.setMsg("");
